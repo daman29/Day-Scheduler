@@ -16,6 +16,7 @@ function init() {
     savedNotes = retrievedNotes;
   }
   setLayout();
+  setRunnerLine();
 }
 
 function setLayout() {
@@ -40,18 +41,32 @@ function saveNotes(hour, input) {
   var index = hour - 9;
   var lastSaveDate = now.format("DD MM");
 
-  savedNotes[index] = input.val().trim();
+  savedNotes[index] = input.trim();
   localStorage.setItem("notes", JSON.stringify(savedNotes));
   localStorage.setItem("lastSaveDate", lastSaveDate);
+}
+
+function setRunnerLine() {
+  var currentProgress = ((now.hour() + (now.minutes() / 60) - 9) / 9) * 10000;
+  var currentProgressPercentage = currentProgress + "%";
+  if(currentProgress < 10000 && currentProgress >= 0){
+    console.log(currentProgressPercentage)
+  
+    $('.runner-line').css('transform', 'translateY(' + currentProgressPercentage + ')');
+  }else{
+    console.log(currentProgressPercentage)
+    $('.runner-line').css('display', 'none');
+  }
 }
 
 saveBtn.click(function (event) {
   event.preventDefault();
   var parentDiv = $(event.target.parentNode);
   var parentHour = Number(event.target.parentNode.dataset.hour);
-  var notesInput = parentDiv.children().children("input");
+  var notesInput = parentDiv.children().children("input").val();
 
   saveNotes(parentHour, notesInput);
+  setRunnerLine();
 });
 
 init();
