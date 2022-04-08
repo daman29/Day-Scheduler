@@ -76,7 +76,8 @@ textarea {
   color: rgb(3, 151, 23);
   background-color: #98c0c9;
   font-size: 20px;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  font-weight: bold;
 }
 
 .notes{
@@ -90,11 +91,12 @@ textarea {
   position: relative;
 }
 
+/* Runner line styling */
 .runner-line{
   z-index: 0;
-  position: absolute;
-  margin-left: calc(calc(1/12)*100%);
-  width: calc(calc(10/12)*100%);
+  position: absolute; /* position absolute so it can be placed relative absolutely*/
+  margin-left: calc(calc(1/12)*100%); /* Calculate margin from current width of columns */
+  width: calc(calc(10/12)*100%); /* Calculate width of the runner line from current width of columns */
   height: 1%;
   border-radius: 50px;
   left: 0;
@@ -102,6 +104,7 @@ textarea {
   background-color: rgba(255, 255, 255, 0.4);
 }
 
+/* Added two media queries to change size and position of the runner line as the size of the screen changes */
 @media screen and (max-width:991px) {
   .runner-line{
     margin-left: calc(calc(2/12)*100%);
